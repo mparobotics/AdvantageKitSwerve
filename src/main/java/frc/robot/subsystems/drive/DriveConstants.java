@@ -40,7 +40,7 @@ public class DriveConstants {
   public static final int frontLeftDriveCanId = 14;
   public static final int backLeftDriveCanId = 17;
   public static final int frontRightDriveCanId = 20;
-  public static final int backRightDriveCanId = 7;
+  public static final int backRightDriveCanId = 11;
 
   public static final int frontLeftTurnCanId = 13;
   public static final int backLeftTurnCanId = 10;
@@ -75,7 +75,7 @@ public class DriveConstants {
   public static final boolean turnInverted = false;
   public static final int turnMotorCurrentLimit = 20;
   public static final double turnMotorReduction = (12.8 / 1);
-  public static final DCMotor turnGearbox = DCMotor.getNeo550(1);
+  public static final DCMotor turnGearbox = DCMotor.getNEO(1);
 
   // Turn encoder configuration
   public static final boolean turnEncoderInverted = true;
@@ -89,7 +89,7 @@ public class DriveConstants {
   public static final int backRightCancoder = 21;
 
   // Turn PID configuration
-  public static final double turnKp = 2.0;
+  public static final double turnKp = 0.01;
   public static final double turnKd = 0.0;
   public static final double turnSimP = 8.0;
   public static final double turnSimD = 0.0;
