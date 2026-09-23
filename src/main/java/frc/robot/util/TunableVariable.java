@@ -36,7 +36,7 @@ public class TunableVariable{
         private int lastValue;
 
         public TunableInt(String key, int defaultValue) {
-            key = this.key;
+            this.key = key;
             Preferences.initInt(key, defaultValue);
             lastValue = Preferences.getInt(key, defaultValue);
         }
@@ -48,6 +48,7 @@ public class TunableVariable{
         public boolean hasChanged() {
             int currentValue = get();
             if(lastValue != currentValue) {
+                lastValue = currentValue;
                 return true;
             }
             else {return false;}
@@ -60,7 +61,7 @@ public class TunableVariable{
     private boolean lastValue;
 
     public TunableBoolean(String key, Boolean defaultValue) {
-        key = this.key;
+        this.key = key;
         Preferences.initBoolean(key, defaultValue);
         lastValue = Preferences.getBoolean(key, defaultValue);
     }
@@ -72,6 +73,7 @@ public class TunableVariable{
     public boolean hasChanged() {
         boolean currentValue = get();
         if(lastValue != currentValue) {
+            lastValue = currentValue;
             return true;
         }
         else {return false;}
@@ -84,7 +86,7 @@ public class TunableVariable{
         private float lastValue;
 
         public TunableFloat(String key, float defaultValue) {
-            key = this.key;
+            this.key = key;
             Preferences.initFloat(key, defaultValue);
             lastValue = Preferences.getFloat(key, defaultValue);
         }
@@ -96,6 +98,7 @@ public class TunableVariable{
         public boolean hasChanged() {
             float currentValue = get();
             if(lastValue != currentValue) {
+                lastValue = currentValue;
                 return true;
             }
             else {return false;}
