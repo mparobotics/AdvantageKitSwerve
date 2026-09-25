@@ -44,4 +44,10 @@ public interface ModuleIO {
 
   /** Run the turn motor to the specified rotation. */
   public default void setTurnPosition(Rotation2d rotation) {}
+
+  /** Re-Configure the PID for live tuning */
+  public default void setDrivePID(double Kp, double Ki, double Kd) {}
+
+  /** Re-Configure the PID for live tuning */
+  public default void setTurnPID(double Kp, double Ki, double Kd) {}
 }

@@ -63,6 +63,7 @@ public class DriveConstants {
 
   // Drive PID configuration
   public static final double driveKp = 0.0;
+  public static final double driveKi = 0.0;
   public static final double driveKd = 0.0;
   public static final double driveKs = 0.0;
   public static final double driveKv = 0.1;
@@ -90,6 +91,7 @@ public class DriveConstants {
 
   // Turn PID configuration
   public static final double turnKp = 0.01;
+  public static final double turnKi = 0.0;
   public static final double turnKd = 0.0;
   public static final double turnSimP = 8.0;
   public static final double turnSimD = 0.0;

@@ -14,6 +14,8 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
+import frc.robot.util.TunableVariable.TunableDouble;
+
 import org.littletonrobotics.junction.Logger;
 
 public class Module {
@@ -24,6 +26,10 @@ public class Module {
   private final Alert driveDisconnectedAlert;
   private final Alert turnDisconnectedAlert;
   private SwerveModulePosition[] odometryPositions = new SwerveModulePosition[] {};
+
+  private TunableDouble DrivetKp = new TunableDouble("Tuning/Drive Kp", 0.0);
+  private TunableDouble DrivetKi = new TunableDouble("Tuning/Drive Ki", 0.0);
+  private TunableDouble DrivetKd = new TunableDouble("Tuning/Drive Kd", 0.0);
 
   public Module(ModuleIO io, int index) {
     this.io = io;
@@ -40,6 +46,11 @@ public class Module {
   public void periodic() {
     io.updateInputs(inputs);
     Logger.processInputs("Drive/Module" + Integer.toString(index), inputs);
+
+    //Live Tuning PID
+    if(DrivetKp.hasChanged() || DrivetKi.hasChanged() || DrivetKd.hasChanged()) {
+      io.setDrivePID(DrivetKp.get(), DrivetKi.get(), DrivetKp.get());
+    }
 
     // Calculate positions for odometry
     int sampleCount = inputs.odometryTimestamps.length; // All signals are sampled together

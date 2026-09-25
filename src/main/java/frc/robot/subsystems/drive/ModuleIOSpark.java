@@ -117,7 +117,7 @@ public class ModuleIOSpark implements ModuleIO {
     driveConfig
         .closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pid(driveKp, 0.0, driveKd);
+        .pid(driveKp, driveKi, driveKd);
     driveConfig
         .signals
         .primaryEncoderPositionAlwaysOn(true)
@@ -153,7 +153,7 @@ public class ModuleIOSpark implements ModuleIO {
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
         .positionWrappingEnabled(true)
         .positionWrappingInputRange(turnPIDMinInput, turnPIDMaxInput)
-        .pid(turnKp, 0.0, turnKd);
+        .pid(turnKp, turnKi, turnKd);
     turnConfig
         .signals
         .absoluteEncoderPositionAlwaysOn(true)
@@ -250,5 +250,15 @@ public class ModuleIOSpark implements ModuleIO {
         MathUtil.inputModulus(
             rotation.plus(zeroRotation).getRadians(), turnPIDMinInput, turnPIDMaxInput);
     turnController.setSetpoint(setpoint, ControlType.kPosition);
+  }
+
+  @Override
+  public void setDrivePID(double Kp, double Ki, double Kd) {
+    var config = new SparkFlexConfig();
+
+    config.closedLoop.pid(Kp, Ki, Kd);
+
+    tryUntilOk(driveSpark, 5, 
+        () -> driveSpark.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters));
   }
 }
