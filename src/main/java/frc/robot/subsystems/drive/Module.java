@@ -31,6 +31,10 @@ public class Module {
   private TunableDouble DrivetKi = new TunableDouble("Tuning/Drive Ki", 0.0);
   private TunableDouble DrivetKd = new TunableDouble("Tuning/Drive Kd", 0.0);
 
+  private TunableDouble TurntKp = new TunableDouble("Tuning/Turn Kp", 0.0);
+  private TunableDouble TurntKi = new TunableDouble("Tuning/Turn Ki", 0.0);
+  private TunableDouble TurntKd = new TunableDouble("Tuning/Turn Kd", 0.0);
+
   public Module(ModuleIO io, int index) {
     this.io = io;
     this.index = index;
@@ -50,6 +54,10 @@ public class Module {
     //Live Tuning PID
     if(DrivetKp.hasChanged() || DrivetKi.hasChanged() || DrivetKd.hasChanged()) {
       io.setDrivePID(DrivetKp.get(), DrivetKi.get(), DrivetKp.get());
+    }
+
+    if(TurntKp.hasChanged() || TurntKi.hasChanged() || TurntKd.hasChanged()) {
+      io.setTurnPID(TurntKp.get(), TurntKi.get(), TurntKp.get());
     }
 
     // Calculate positions for odometry
