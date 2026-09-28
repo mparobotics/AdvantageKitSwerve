@@ -15,7 +15,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import frc.robot.util.TunableVariable.TunableDouble;
-
 import org.littletonrobotics.junction.Logger;
 
 public class Module {
@@ -51,12 +50,12 @@ public class Module {
     io.updateInputs(inputs);
     Logger.processInputs("Drive/Module" + Integer.toString(index), inputs);
 
-    //Live Tuning PID
-    if(DrivetKp.hasChanged() || DrivetKi.hasChanged() || DrivetKd.hasChanged()) {
+    // Live Tuning PID
+    if (DrivetKp.hasChanged() || DrivetKi.hasChanged() || DrivetKd.hasChanged()) {
       io.setDrivePID(DrivetKp.get(), DrivetKi.get(), DrivetKp.get());
     }
 
-    if(TurntKp.hasChanged() || TurntKi.hasChanged() || TurntKd.hasChanged()) {
+    if (TurntKp.hasChanged() || TurntKi.hasChanged() || TurntKd.hasChanged()) {
       io.setTurnPID(TurntKp.get(), TurntKi.get(), TurntKp.get());
     }
 

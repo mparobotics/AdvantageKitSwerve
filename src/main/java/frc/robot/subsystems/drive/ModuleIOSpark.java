@@ -258,8 +258,12 @@ public class ModuleIOSpark implements ModuleIO {
 
     config.closedLoop.pid(Kp, Ki, Kd);
 
-    tryUntilOk(driveSpark, 5, 
-        () -> driveSpark.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters));
+    tryUntilOk(
+        driveSpark,
+        5,
+        () ->
+            driveSpark.configure(
+                config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters));
   }
 
   @Override
@@ -268,7 +272,11 @@ public class ModuleIOSpark implements ModuleIO {
 
     config.closedLoop.pid(Kp, Ki, Kd);
 
-    tryUntilOk(turnSpark, 5, 
-        () -> turnSpark.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters));
+    tryUntilOk(
+        turnSpark,
+        5,
+        () ->
+            turnSpark.configure(
+                config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters));
   }
 }
