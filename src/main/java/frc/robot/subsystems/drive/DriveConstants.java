@@ -29,23 +29,23 @@ public class DriveConstants {
       };
 
   // Zeroed rotation values for each module, see setup instructions
-  public static final Rotation2d frontLeftZeroRotation = new Rotation2d(0.0);
-  public static final Rotation2d frontRightZeroRotation = new Rotation2d(0.0);
-  public static final Rotation2d backLeftZeroRotation = new Rotation2d(0.0);
-  public static final Rotation2d backRightZeroRotation = new Rotation2d(0.0);
+  public static final Rotation2d frontLeftZeroRotation = new Rotation2d(-0.848);
+  public static final Rotation2d frontRightZeroRotation = new Rotation2d(-2.248);
+  public static final Rotation2d backLeftZeroRotation = new Rotation2d(-1.149);
+  public static final Rotation2d backRightZeroRotation = new Rotation2d(2.785);
 
   // Device CAN IDs
   public static final int pigeonCanId = 23;
-
-  public static final int frontLeftDriveCanId = 14;
-  public static final int backLeftDriveCanId = 17;
-  public static final int frontRightDriveCanId = 20;
-  public static final int backRightDriveCanId = 11;
 
   public static final int frontLeftTurnCanId = 13;
   public static final int backLeftTurnCanId = 10;
   public static final int frontRightTurnCanId = 16;
   public static final int backRightTurnCanId = 19;
+
+  public static final int frontLeftDriveCanId = 14;
+  public static final int backLeftDriveCanId = 11;
+  public static final int frontRightDriveCanId = 17;
+  public static final int backRightDriveCanId = 20;
 
   // Drive motor configuration
   public static final int driveMotorCurrentLimit = 50;
@@ -80,8 +80,10 @@ public class DriveConstants {
 
   // Turn encoder configuration
   public static final boolean turnEncoderInverted = true;
-  public static final double turnEncoderPositionFactor = 2 * Math.PI; // Rotations -> Radians
-  public static final double turnEncoderVelocityFactor = (2 * Math.PI) / 60.0; // RPM -> Rad/Sec
+  public static final double turnEncoderPositionFactor =
+      2 * Math.PI / turnMotorReduction; // Rotations -> Radians
+  public static final double turnEncoderVelocityFactor =
+      (2 * Math.PI) / 60.0 / turnMotorReduction; // RPM -> Rad/Sec
 
   // Turn Cancoder Constants
   public static final int frontLeftCancoder = 15;

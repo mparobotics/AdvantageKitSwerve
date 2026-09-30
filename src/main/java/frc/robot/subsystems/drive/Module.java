@@ -52,11 +52,11 @@ public class Module {
 
     // Live Tuning PID
     if (DrivetKp.hasChanged() || DrivetKi.hasChanged() || DrivetKd.hasChanged()) {
-      io.setDrivePID(DrivetKp.get(), DrivetKi.get(), DrivetKp.get());
+      io.setDrivePID(DrivetKp.get(), DrivetKi.get(), DrivetKd.get());
     }
 
     if (TurntKp.hasChanged() || TurntKi.hasChanged() || TurntKd.hasChanged()) {
-      io.setTurnPID(TurntKp.get(), TurntKi.get(), TurntKp.get());
+      io.setTurnPID(TurntKp.get(), TurntKi.get(), TurntKd.get());
     }
 
     // Calculate positions for odometry
