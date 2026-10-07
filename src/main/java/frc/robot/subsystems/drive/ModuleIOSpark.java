@@ -65,9 +65,9 @@ public class ModuleIOSpark implements ModuleIO {
   public ModuleIOSpark(int module) {
     zeroRotation =
         switch (module) {
-          case 0 -> frontLeftZeroRotation;
-          case 1 -> frontRightZeroRotation;
-          case 2 -> backLeftZeroRotation;
+          case 1 -> frontLeftZeroRotation;
+          case 2 -> frontRightZeroRotation;
+          case 0 -> backLeftZeroRotation;
           case 3 -> backRightZeroRotation;
           default -> Rotation2d.kZero;
         };

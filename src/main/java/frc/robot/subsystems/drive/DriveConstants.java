@@ -29,10 +29,10 @@ public class DriveConstants {
       };
 
   // Zeroed rotation values for each module, see setup instructions
-  public static final Rotation2d frontLeftZeroRotation = new Rotation2d(-0.848);
-  public static final Rotation2d frontRightZeroRotation = new Rotation2d(-2.248);
-  public static final Rotation2d backLeftZeroRotation = new Rotation2d(-1.149);
-  public static final Rotation2d backRightZeroRotation = new Rotation2d(2.785);
+  public static final Rotation2d frontLeftZeroRotation = new Rotation2d(-1.2459); // mod 1
+  public static final Rotation2d frontRightZeroRotation = new Rotation2d(2.8498); // mod 2
+  public static final Rotation2d backLeftZeroRotation = new Rotation2d(-1.7649); // mod 0
+  public static final Rotation2d backRightZeroRotation = new Rotation2d(3.0947); // mod 3
 
   // Device CAN IDs
   public static final int pigeonCanId = 23;
