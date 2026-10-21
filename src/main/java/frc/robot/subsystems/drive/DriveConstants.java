@@ -37,14 +37,14 @@ public class DriveConstants {
   // Device CAN IDs
   public static final int pigeonCanId = 23;
 
-  public static final int frontLeftTurnCanId = 13;
-  public static final int backLeftTurnCanId = 10;
-  public static final int frontRightTurnCanId = 16;
-  public static final int backRightTurnCanId = 19;
+  public static final int frontLeftTurnCanId = 10; // 0
+  public static final int backLeftTurnCanId = 16; // 2
+  public static final int frontRightTurnCanId = 13; // 1
+  public static final int backRightTurnCanId = 19; // 3
 
-  public static final int frontLeftDriveCanId = 14;
-  public static final int backLeftDriveCanId = 11;
-  public static final int frontRightDriveCanId = 17;
+  public static final int frontLeftDriveCanId = 11;
+  public static final int backLeftDriveCanId = 17;
+  public static final int frontRightDriveCanId = 14;
   public static final int backRightDriveCanId = 20;
 
   // Drive motor configuration
@@ -86,9 +86,9 @@ public class DriveConstants {
       (2 * Math.PI) / 60.0 / turnMotorReduction; // RPM -> Rad/Sec
 
   // Turn Cancoder Constants
-  public static final int frontLeftCancoder = 15;
-  public static final int frontRightCancoder = 18;
-  public static final int backLeftCancoder = 12;
+  public static final int frontLeftCancoder = 12;
+  public static final int backLeftCancoder = 18;
+  public static final int frontRightCancoder = 15;
   public static final int backRightCancoder = 21;
 
   // Turn PID configuration
