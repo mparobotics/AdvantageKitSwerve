@@ -29,10 +29,10 @@ public class DriveConstants {
       };
 
   // Zeroed rotation values for each module, see setup instructions
-  public static final Rotation2d frontLeftZeroRotation = new Rotation2d(-0.863); // mod 1
-  public static final Rotation2d frontRightZeroRotation = new Rotation2d(-2.257); // mod 2
-  public static final Rotation2d backLeftZeroRotation = new Rotation2d(-1.110); // mod 0
-  public static final Rotation2d backRightZeroRotation = new Rotation2d(2.906); // mod 3
+  public static final Rotation2d frontLeftZeroRotation = new Rotation2d(-0.854); // mod 1
+  public static final Rotation2d frontRightZeroRotation = new Rotation2d(-2.259); // mod 2
+  public static final Rotation2d backLeftZeroRotation = new Rotation2d(-1.093); // mod 0
+  public static final Rotation2d backRightZeroRotation = new Rotation2d(2.857); // mod 3
 
   // Device CAN IDs
   public static final int pigeonCanId = 23;
@@ -62,7 +62,7 @@ public class DriveConstants {
   // Wheel Rad/Sec
 
   // Drive PID configuration
-  public static final double driveKp = 0.0;
+  public static final double driveKp = 0.01;
   public static final double driveKi = 0.0;
   public static final double driveKd = 0.0;
   public static final double driveKs = 0.0;
@@ -92,7 +92,7 @@ public class DriveConstants {
   public static final int backRightCancoder = 21;
 
   // Turn PID configuration
-  public static final double turnKp = 0.01;
+  public static final double turnKp = 0.8;
   public static final double turnKi = 0.0;
   public static final double turnKd = 0.0;
   public static final double turnSimP = 8.0;

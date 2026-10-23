@@ -14,7 +14,6 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
-import frc.robot.util.TunableVariable.TunableDouble;
 import org.littletonrobotics.junction.Logger;
 
 public class Module {
@@ -26,13 +25,13 @@ public class Module {
   private final Alert turnDisconnectedAlert;
   private SwerveModulePosition[] odometryPositions = new SwerveModulePosition[] {};
 
-  private TunableDouble DrivetKp = new TunableDouble("Tuning/Drive Kp", 0.0);
-  private TunableDouble DrivetKi = new TunableDouble("Tuning/Drive Ki", 0.0);
-  private TunableDouble DrivetKd = new TunableDouble("Tuning/Drive Kd", 0.0);
+  // private TunableDouble DrivetKp = new TunableDouble("Tuning/Drive Kp", 0.0);
+  // private TunableDouble DrivetKi = new TunableDouble("Tuning/Drive Ki", 0.0);
+  // private TunableDouble DrivetKd = new TunableDouble("Tuning/Drive Kd", 0.0);
 
-  private TunableDouble TurntKp = new TunableDouble("Tuning/Turn Kp", 0.0);
-  private TunableDouble TurntKi = new TunableDouble("Tuning/Turn Ki", 0.0);
-  private TunableDouble TurntKd = new TunableDouble("Tuning/Turn Kd", 0.0);
+  // private TunableDouble TurntKp = new TunableDouble("Tuning/Turn Kp", 0.0);
+  // private TunableDouble TurntKi = new TunableDouble("Tuning/Turn Ki", 0.0);
+  // private TunableDouble TurntKd = new TunableDouble("Tuning/Turn Kd", 0.0);
 
   public Module(ModuleIO io, int index) {
     this.io = io;
@@ -51,13 +50,13 @@ public class Module {
     Logger.processInputs("Drive/Module" + Integer.toString(index), inputs);
 
     // Live Tuning PID
-    if (DrivetKp.hasChanged() || DrivetKi.hasChanged() || DrivetKd.hasChanged()) {
-      io.setDrivePID(DrivetKp.get(), DrivetKi.get(), DrivetKd.get());
-    }
+    // if (DrivetKp.hasChanged() || DrivetKi.hasChanged() || DrivetKd.hasChanged()) {
+    //   io.setDrivePID(DrivetKp.get(), DrivetKi.get(), DrivetKd.get());
+    // }
 
-    if (TurntKp.hasChanged() || TurntKi.hasChanged() || TurntKd.hasChanged()) {
-      io.setTurnPID(TurntKp.get(), TurntKi.get(), TurntKd.get());
-    }
+    // if (TurntKp.hasChanged() || TurntKi.hasChanged() || TurntKd.hasChanged()) {
+    //   io.setTurnPID(TurntKp.get(), TurntKi.get(), TurntKd.get());
+    // }
 
     // Calculate positions for odometry
     int sampleCount = inputs.odometryTimestamps.length; // All signals are sampled together
