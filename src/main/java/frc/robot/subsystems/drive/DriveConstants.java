@@ -22,10 +22,10 @@ public class DriveConstants {
   public static final double driveBaseRadius = Math.hypot(trackWidth / 2.0, wheelBase / 2.0);
   public static final Translation2d[] moduleTranslations =
       new Translation2d[] {
-        new Translation2d(trackWidth / 2.0, wheelBase / 2.0),
-        new Translation2d(trackWidth / 2.0, -wheelBase / 2.0),
-        new Translation2d(-trackWidth / 2.0, wheelBase / 2.0),
-        new Translation2d(-trackWidth / 2.0, -wheelBase / 2.0)
+        new Translation2d(trackWidth / 2.0, wheelBase / 2.0), //FL - Mod 0
+        new Translation2d(trackWidth / 2.0, -wheelBase / 2.0), //FR - Mod 1
+        new Translation2d(-trackWidth / 2.0, wheelBase / 2.0), //BL - Mod 2
+        new Translation2d(-trackWidth / 2.0, -wheelBase / 2.0) //BR - Mod 3
       };
 
   // Zeroed rotation values for each module, see setup instructions
@@ -38,13 +38,13 @@ public class DriveConstants {
   public static final int pigeonCanId = 23;
 
   public static final int frontLeftTurnCanId = 10; // 0
-  public static final int backLeftTurnCanId = 16; // 2
   public static final int frontRightTurnCanId = 13; // 1
+  public static final int backLeftTurnCanId = 16; // 2
   public static final int backRightTurnCanId = 19; // 3
 
   public static final int frontLeftDriveCanId = 11;
-  public static final int backLeftDriveCanId = 17;
   public static final int frontRightDriveCanId = 14;
+  public static final int backLeftDriveCanId = 17;
   public static final int backRightDriveCanId = 20;
 
   // Drive motor configuration
@@ -87,8 +87,8 @@ public class DriveConstants {
 
   // Turn Cancoder Constants
   public static final int frontLeftCancoder = 12;
-  public static final int backLeftCancoder = 18;
   public static final int frontRightCancoder = 15;
+  public static final int backLeftCancoder = 18;
   public static final int backRightCancoder = 21;
 
   // Turn PID configuration
