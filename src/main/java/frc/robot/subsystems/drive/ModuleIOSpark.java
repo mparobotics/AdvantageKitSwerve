@@ -30,6 +30,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.Units;
+import frc.robot.subsystems.drive.DriveConstants.ModuleParams;
 import java.util.Queue;
 import java.util.function.DoubleSupplier;
 
@@ -62,44 +63,11 @@ public class ModuleIOSpark implements ModuleIO {
   private final Debouncer turnConnectedDebounce =
       new Debouncer(0.5, Debouncer.DebounceType.kFalling);
 
-  public ModuleIOSpark(int module) {
-    zeroRotation =
-        switch (module) {
-          case 0 -> frontLeftZeroRotation;
-          case 1 -> frontRightZeroRotation;
-          case 2 -> backLeftZeroRotation;
-          case 3 -> backRightZeroRotation;
-          default -> Rotation2d.kZero;
-        };
-    driveSpark =
-        new SparkFlex(
-            switch (module) {
-              case 0 -> frontLeftDriveCanId;
-              case 1 -> frontRightDriveCanId;
-              case 2 -> backLeftDriveCanId;
-              case 3 -> backRightDriveCanId;
-              default -> 0;
-            },
-            MotorType.kBrushless);
-    turnSpark =
-        new SparkMax(
-            switch (module) {
-              case 0 -> frontLeftTurnCanId;
-              case 1 -> frontRightTurnCanId;
-              case 2 -> backLeftTurnCanId;
-              case 3 -> backRightTurnCanId;
-              default -> 0;
-            },
-            MotorType.kBrushless);
-    turnAbsoluteEncoder =
-        new CANcoder(
-            switch (module) {
-              case 0 -> frontLeftCancoder;
-              case 1 -> frontRightCancoder;
-              case 2 -> backLeftCancoder;
-              case 3 -> backRightCancoder;
-              default -> 0;
-            });
+  public ModuleIOSpark(ModuleParams moduleParams) {
+    zeroRotation = moduleParams.zeroRotation();
+    driveSpark = new SparkFlex(moduleParams.driveCanId(), MotorType.kBrushless);
+    turnSpark = new SparkMax(moduleParams.turnCanId(), MotorType.kBrushless);
+    turnAbsoluteEncoder = new CANcoder(moduleParams.canCoderCanId());
     driveEncoder = driveSpark.getEncoder();
     turnEncoder = turnSpark.getEncoder();
     driveController = driveSpark.getClosedLoopController();

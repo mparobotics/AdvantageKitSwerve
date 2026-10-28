@@ -13,6 +13,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
+import java.util.Arrays;
 
 public class DriveConstants {
   public static final double maxSpeedMetersPerSec = 5.0; // to tune
@@ -20,32 +21,58 @@ public class DriveConstants {
   public static final double trackWidth = Units.inchesToMeters(28);
   public static final double wheelBase = Units.inchesToMeters(28);
   public static final double driveBaseRadius = Math.hypot(trackWidth / 2.0, wheelBase / 2.0);
+
+  /** Parameter values for one swerve module. */
+  public record ModuleParams(
+      Translation2d location,
+      int turnCanId,
+      int driveCanId,
+      int canCoderCanId,
+      Rotation2d zeroRotation) {}
+
+  public static final ModuleParams FRONT_LEFT =
+      new ModuleParams(
+          new Translation2d(trackWidth / 2.0, wheelBase / 2.0), // location
+          10, // turnCanId
+          11, // driveCanId
+          12, // canCoderCanId
+          new Rotation2d(-0.854)); // zeroRotation
+  public static final ModuleParams FRONT_RIGHT =
+      new ModuleParams(
+          new Translation2d(trackWidth / 2.0, -wheelBase / 2.0), // location
+          13, // turnCanId
+          14, // driveCanId
+          15, // canCoderCanId
+          new Rotation2d(-2.259)); // zeroRotation
+  public static final ModuleParams BACK_LEFT =
+      new ModuleParams(
+          new Translation2d(-trackWidth / 2.0, wheelBase / 2.0), // location
+          16, // turnCanId
+          17, // driveCanId
+          18, // canCoderCanId
+          new Rotation2d(-1.093)); // zeroRotation
+  public static final ModuleParams BACK_RIGHT =
+      new ModuleParams(
+          new Translation2d(-trackWidth / 2.0, -wheelBase / 2.0), // location
+          19, // turnCanId
+          20, // driveCanId
+          21, // canCoderCanId
+          new Rotation2d(2.857)); // zeroRotation
+
+  // List of module parameters in the *required* order:
+  // --> FRONT_LEFT, FRONT_RIGHT, BACK_LEFT, BACK_RIGHT
+  // - PathPlanner *requires* this order
+  // - This order is used everywhere else to ensure consistency between all components
+  public static final ModuleParams[] moduleParams = {
+    FRONT_LEFT, FRONT_RIGHT, BACK_LEFT, BACK_RIGHT
+  };
+
+  // Module translations array generated in the same order as moduleParams array
   public static final Translation2d[] moduleTranslations =
-      new Translation2d[] {
-        new Translation2d(trackWidth / 2.0, wheelBase / 2.0), // FL - Mod 0
-        new Translation2d(trackWidth / 2.0, -wheelBase / 2.0), // FR - Mod 1
-        new Translation2d(-trackWidth / 2.0, wheelBase / 2.0), // BL - Mod 2
-        new Translation2d(-trackWidth / 2.0, -wheelBase / 2.0) // BR - Mod 3
-      };
+      Arrays.stream(moduleParams).map(ModuleParams::location).toArray(Translation2d[]::new);
 
-  // Zeroed rotation values for each module, see setup instructions
-  public static final Rotation2d frontLeftZeroRotation = new Rotation2d(-0.854); // mod 1
-  public static final Rotation2d frontRightZeroRotation = new Rotation2d(-2.259); // mod 2
-  public static final Rotation2d backLeftZeroRotation = new Rotation2d(-1.093); // mod 0
-  public static final Rotation2d backRightZeroRotation = new Rotation2d(2.857); // mod 3
-
-  // Device CAN IDs
+  // Pigeon CAN ID
   public static final int pigeonCanId = 23;
-
-  public static final int frontLeftTurnCanId = 10; // 0
-  public static final int frontRightTurnCanId = 13; // 1
-  public static final int backLeftTurnCanId = 16; // 2
-  public static final int backRightTurnCanId = 19; // 3
-
-  public static final int frontLeftDriveCanId = 11;
-  public static final int frontRightDriveCanId = 14;
-  public static final int backLeftDriveCanId = 17;
-  public static final int backRightDriveCanId = 20;
 
   // Drive motor configuration
   public static final int driveMotorCurrentLimit = 50;
@@ -84,12 +111,6 @@ public class DriveConstants {
       2 * Math.PI / turnMotorReduction; // Rotations -> Radians
   public static final double turnEncoderVelocityFactor =
       (2 * Math.PI) / 60.0 / turnMotorReduction; // RPM -> Rad/Sec
-
-  // Turn Cancoder Constants
-  public static final int frontLeftCancoder = 12;
-  public static final int frontRightCancoder = 15;
-  public static final int backLeftCancoder = 18;
-  public static final int backRightCancoder = 21;
 
   // Turn PID configuration
   public static final double turnKp = 0.8;

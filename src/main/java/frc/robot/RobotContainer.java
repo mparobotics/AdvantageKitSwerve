@@ -18,11 +18,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
 import frc.robot.subsystems.drive.Drive;
+import frc.robot.subsystems.drive.DriveConstants;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSpark;
+import java.util.Arrays;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -49,10 +51,10 @@ public class RobotContainer {
         drive =
             new Drive(
                 new GyroIOPigeon2(),
-                new ModuleIOSpark(0),
-                new ModuleIOSpark(1),
-                new ModuleIOSpark(2),
-                new ModuleIOSpark(3));
+                // array constructed in the same order as DriveConstants.moduleParams
+                Arrays.stream(DriveConstants.moduleParams)
+                    .map(ModuleIOSpark::new)
+                    .toArray(ModuleIO[]::new));
         break;
 
       case SIM:
@@ -60,10 +62,9 @@ public class RobotContainer {
         drive =
             new Drive(
                 new GyroIO() {},
-                new ModuleIOSim(),
-                new ModuleIOSim(),
-                new ModuleIOSim(),
-                new ModuleIOSim());
+                Arrays.stream(DriveConstants.moduleParams)
+                    .map(module -> new ModuleIOSim())
+                    .toArray(ModuleIO[]::new));
         break;
 
       default:
@@ -71,10 +72,9 @@ public class RobotContainer {
         drive =
             new Drive(
                 new GyroIO() {},
-                new ModuleIO() {},
-                new ModuleIO() {},
-                new ModuleIO() {},
-                new ModuleIO() {});
+                Arrays.stream(DriveConstants.moduleParams)
+                    .map(module -> new ModuleIO() {})
+                    .toArray(ModuleIO[]::new));
         break;
     }
 
