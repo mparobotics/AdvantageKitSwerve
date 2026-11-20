@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.PathPlannerPath;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -28,6 +30,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
@@ -149,6 +153,63 @@ public class DriveCommands {
 
         // Reset PID controller when command starts
         .beforeStarting(() -> angleController.reset(drive.getRotation().getRadians()));
+  }
+
+  // Auto Stuff
+  public static Command driveMeters(
+      Drive drive, double xMeters, double yMeters, double degreeRotation, double mpsSpeed) {
+    return Commands.defer(
+        () -> {
+          Pose2d start = drive.getPose();
+
+          double distance = Math.hypot(xMeters, yMeters);
+
+          double ux = distance == 0 ? 0 : xMeters / distance;
+          double uy = distance == 0 ? 0 : yMeters / distance;
+
+          // angdeg = rotation speed/sec
+          double omega = Math.toRadians(90) * Math.signum(degreeRotation);
+
+          BooleanSupplier translationDone =
+              () -> {
+                Pose2d relative = drive.getPose().relativeTo(start);
+                return relative.getX() * ux + relative.getY() * uy >= distance;
+              };
+
+          BooleanSupplier rotationDone =
+              () ->
+                  drive.getRotation().minus(start.getRotation()).getDegrees()
+                          * Math.signum(degreeRotation)
+                      >= Math.abs(degreeRotation) - 2;
+
+          return Commands.runEnd(
+                  () ->
+                      drive.runVelocity(
+                          ChassisSpeeds.fromFieldRelativeSpeeds(
+                              translationDone.getAsBoolean() ? 0 : ux * mpsSpeed,
+                              translationDone.getAsBoolean() ? 0 : uy * mpsSpeed,
+                              rotationDone.getAsBoolean() ? 0 : omega,
+                              drive.getRotation().minus(start.getRotation()))),
+                  drive::stop,
+                  drive)
+              .until(() -> translationDone.getAsBoolean() && rotationDone.getAsBoolean());
+        },
+        Set.of(drive));
+  }
+
+  public static Command followPath(String name, boolean mirrored) {
+    try {
+      if (!mirrored) {
+        return AutoBuilder.followPath(PathPlannerPath.fromPathFile(name));
+      } else {
+        return AutoBuilder.followPath(PathPlannerPath.fromPathFile(name).mirrorPath());
+      }
+
+    } catch (Exception e) {
+      System.out.print("Error following path: ");
+      e.printStackTrace();
+      return Commands.none();
+    }
   }
 
   /**
