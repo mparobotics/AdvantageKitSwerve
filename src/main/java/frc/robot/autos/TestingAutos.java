@@ -11,6 +11,7 @@ public class TestingAutos {
     return Commands.sequence(
         // write auto commands here
         DriveCommands.followPath("Forward Test", false),
+        Commands.waitSeconds(1),
         DriveCommands.driveMeters(drive, 0, 0, 180, 0),
         Commands.waitSeconds(2),
         DriveCommands.followPath("Back Test", false));

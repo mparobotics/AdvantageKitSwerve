@@ -16,21 +16,12 @@
     },
     {
       "anchor": {
-<<<<<<<< HEAD:src/main/deploy/pathplanner/paths/Forward Test.path
         "x": 3.409,
         "y": 7.0
       },
       "prevControl": {
         "x": 2.409,
         "y": 7.0
-========
-        "x": 2.8802111263843706,
-        "y": 7.0
-      },
-      "prevControl": {
-        "x": 2.3011208150319673,
-        "y": 7.017927563294689
->>>>>>>> 1ddabc20c9ac9a62d70d1f13655ba839da85fa6d:src/main/deploy/pathplanner/paths/drive.path
       },
       "nextControl": null,
       "isLocked": false,
@@ -54,7 +45,7 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "test auto - drive, turn, backwards",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0
